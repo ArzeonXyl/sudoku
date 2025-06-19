@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Sudoku 6x6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Game Sudoku 6x6 Interaktif</h1>
+        <div id="game-area">
+            <table id="sudoku-board">
+                {% for r in range(6) %}
+                <tr>
+                    {% for c in range(6) %}
+                    <td id="cell-{{r}}-{{c}}" 
+                        class="{{ 'initial-cell' if board[r][c] != 0 else 'empty-cell' }}"
+                        data-row="{{r}}" data-col="{{c}}">
+                        {{ board[r][c] if board[r][c] != 0 else '' }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div id="numpad">
+                <div class="num-button">1</div>
+                <div class="num-button">2</div>
+                <div class="num-button">3</div>
+                <div class="num-button">4</div>
+                <div class="num-button">5</div>
+                <div class="num-button">6</div>
+                <div class="num-button erase">X</div>
+            </div>
+        </div>
+        <div id="status-panel">
+            <div id="status">Pilih sel kosong dan masukkan angka.</div>
+        </div>
+        <div class="controls">
+            <button id="check-button" class="game-btn">Cek Solusi</button>
+            <button id="hint-button" class="game-btn">Petunjuk</button>
+            <button id="solve-button" class="game-btn">Lihat Solusi (Animasi)</button>
+            <button id="new-game-button" class="game-btn">Game Baru</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>

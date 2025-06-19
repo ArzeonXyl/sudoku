@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisasi Solusi Sudoku</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Visualisasi Penyelesaian Sudoku</h1>
+        <table id="sudoku-board">
+            {% for r in range(6) %}
+            <tr>
+                {% for c in range(6) %}
+                <td id="cell-{{r}}-{{c}}" class="{{ 'initial-cell' if board[r][c] != 0 }}">
+                    {{ board[r][c] if board[r][c] != 0 else '' }}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <div id="status-panel">
+            <div id="status">Memulai visualisasi...</div>
+        </div>
+        <div class="controls">
+            <a href="/" class="game-btn">Kembali ke Game</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusDiv = document.getElementById('status');
+            let lastHighlightedCell = null;
+
+            // Langsung mulai streaming saat halaman dimuat
+            const eventSource = new EventSource('/stream_solve');
+
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                statusDiv.textContent = data.message;
+
+                // Hapus highlight dari sel sebelumnya
+                if (lastHighlightedCell) {
+                    lastHighlightedCell.classList.remove('trying', 'backtracking');
+                }
+                
+                // Perbarui seluruh papan
+                for (let r = 0; r < 6; r++) {
+                    for (let c = 0; c < 6; c++) {
+                        const cell = document.getElementById(`cell-${r}-${c}`);
+                        if (cell.classList.contains('initial-cell')) continue;
+                        
+                        const num = data.board[r][c];
+                        cell.textContent = num !== 0 ? num : '';
+                    }
+                }
+                
+                // Tambahkan highlight baru ke sel saat ini
+                if (data.row !== undefined) {
+                    const currentCell = document.getElementById(`cell-${data.row}-${data.col}`);
+                    if(currentCell) {
+                        currentCell.classList.add(data.status); // 'trying' or 'backtracking'
+                        lastHighlightedCell = currentCell;
+                    }
+                }
+
+                // Jika selesai, tutup koneksi
+                if (data.status === 'solved' || data.status === 'no_solution') {
+                    if (data.status === 'solved') {
+                        statusDiv.classList.add('status-correct');
+                    }
+                    eventSource.close();
+                }
+            };
+
+            eventSource.onerror = function() {
+                statusDiv.textContent = 'Koneksi terputus. Animasi selesai atau terjadi kesalahan.';
+                eventSource.close();
+            };
+        });
+    </script>
+</body>
+</html>
