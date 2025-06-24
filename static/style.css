@@ -1,6 +1,9 @@
 /* /sudoku_web/static/style.css */
 
 body {
+    background-image: url('../static/img/background.jpg');
+    background-size: cover;
+    background-position: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
     color: #333;
@@ -78,6 +81,10 @@ h1 {
     gap: 10px;
 }
 
+#check-button, #hint-button, #solve-button{
+    background-color: #3674B5;
+}
+
 .num-button {
     width: 50px;
     height: 50px;
@@ -89,18 +96,28 @@ h1 {
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #f8f9fa;
+    background-color: #4ED7F1;
     transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow:0 4px 8px #ADEED9;
 }
 .num-button:hover {
-    background-color: #e2e6ea;
+    background-color: #6FE6FC;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .num-button.erase {
-    color: #dc3545;
+    background-color: #FF8282;
+
 }
 
+.num-button.erase:hover{
+    background-color: #FF6363;
+}
 
+.eraser{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
 /* --- Controls & Status --- */
 #status-panel {
     margin-bottom: 15px;
@@ -112,7 +129,8 @@ h1 {
 
 #status {
     font-size: 16px;
-    color: #555;
+    color: #1B4D3E;
+    font-weight: bold;
     font-style: italic;
     transition: color 0.3s;
 }
@@ -137,15 +155,32 @@ h1 {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
+    box-shadow: 0 3px 5px black;
 }
 .game-btn:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #578FCA!important;
 }
 .game-btn:disabled {
-    background-color: #a0c3e6;
+    background-color: #F5F5F5!important;
     cursor: not-allowed;
+    color: gray!important;
 }
 
+.game-btn2 {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+     box-shadow: 0 3px 5px black;
+}
+
+.game-btn2:hover{
+    background-color: #80D8C3!important;
+}
 /* --- Highlights --- */
 .highlight-error {
     background-color: #f8d7da !important;
@@ -159,6 +194,13 @@ h1 {
     animation: pulse-hint 0.6s;
 }
 
+
+#new-game-button{
+    background-color: #00809D; 
+}
+.controls a{
+    text-decoration: none;
+}
 @keyframes pulse-error {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }

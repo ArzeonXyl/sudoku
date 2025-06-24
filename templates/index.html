@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Sudoku 6x6</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
 </head>
@@ -26,15 +25,22 @@
                 </tr>
                 {% endfor %}
             </table>
-            <div id="numpad">
-                <div class="num-button">1</div>
-                <div class="num-button">2</div>
-                <div class="num-button">3</div>
-                <div class="num-button">4</div>
-                <div class="num-button">5</div>
-                <div class="num-button">6</div>
-                <div class="num-button erase">X</div>
+            <div>
+                <div id="numpad">
+                    <div class="num-button">1</div>
+                    <div class="num-button">2</div>
+                    <div class="num-button">3</div>
+                    <div class="num-button">4</div>
+                    <div class="num-button">5</div>
+                    <div class="num-button">6</div>
+                </div>
+                <div class="eraser">
+                    <div class="num-button erase">X</div>
+                </div>
             </div>
+            
+
+
         </div>
         <div id="status-panel">
             <div id="status">Pilih sel kosong dan masukkan angka.</div>
@@ -43,7 +49,7 @@
             <button id="check-button" class="game-btn">Cek Solusi</button>
             <button id="hint-button" class="game-btn">Petunjuk</button>
             <button id="solve-button" class="game-btn">Lihat Solusi (Animasi)</button>
-            <button id="new-game-button" class="game-btn">Game Baru</button>
+            <button id="new-game-button" class="game-btn2">Game Baru</button>
         </div>
     </div>
 
