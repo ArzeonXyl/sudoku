@@ -220,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (result.status === 'correct') {
             statusDiv.classList.add('status-correct'); // Nonaktifkan tombol saat menang
-            disableButtons(true);
             triggerConfetti(); 
         } else if (result.status === 'incorrect' && result.cell) {
             document.getElementById(`cell-${result.cell[0]}-${result.cell[1]}`).classList.add('highlight-error');
